@@ -45,4 +45,18 @@ class _CameraPageState extends State<CameraPage> {
       ),
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: BlocBuilder<CameraBloc, CameraState>(
+        builder: (context, state) {
+          if (state is! CameraReady) {
+            return const Center(child: CircularProgressIndicator());
+          }
+        }
+      )
+    );
+  }
 }
