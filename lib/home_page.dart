@@ -44,6 +44,13 @@ class HomePage extends StatelessWidget {
                         },
                       ),
                     ),
+                     ElevatedButton.icon(
+                      icon: const Icon(Icons.folder),
+                      label: const Text('Pilih dari Galeri'),
+                      onPressed: () => context
+                          .read<CameraBloc>()
+                          .add(PickImageFromGallery()),
+                    ),
                   ]
                 )
               ]
