@@ -4,6 +4,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_sensor/camera_page.dart';
+import 'package:image_sensor/storage_helper.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'camera_event.dart';
@@ -17,8 +19,8 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
     on<SwitchCamera>(_onSwitch);
     on<ToggleFlash>(_onToggleFlash);
     on<TakePicture>(_onTakePicture);
-    on<OnTapFocus>(_onTapFocus);
-    on<PickGallery>(_onPickGallery);
+    on<TapToFocus>(_onTapFocus);
+    on<PickImageFromGallery>(_onPickGallery);
     on<OpenCameraAndCapture>(_onOpenCamera);
     on<DeleteImage>(_onDeleteImage);
     on<ClearSnackbar>(_onClearSnackbar);
@@ -72,7 +74,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
   }
 
   Future<void> _onPickGallery(
-    PickGallery event,Emitter<CameraState> emit) async {
+    PickImageFromGallery event,Emitter<CameraState> emit) async {
     if (state is! CameraReady) return;
     final picker = ImagePicker();
     final picked = await picker.pickImage(source: ImageSource.gallery);
@@ -100,13 +102,13 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       MaterialPageRoute(
         builder: (_) => BlocProvider.value(
           value: this,
-          child: const CameraPage(),
+          child: const CameraPa(),
         ),
       ),
     );
 
     if (file != null) {
-      final saved = await StorageHelper.saveImage(file, 'camera');
+      final saved = await StorageHelp.saveImage(file, 'camera');
       emit((state as CameraReady).copyWith(
         imageFile: saved,
         snackBarMessage: 'Disimpan: ${saved.path}',
