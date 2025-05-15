@@ -1,4 +1,4 @@
-part of 'camera_bloc.dart';
+import 'dart:io';
+import 'package:flutter/material.dart';
 
-@immutable
 sealed class CameraEvent {}
