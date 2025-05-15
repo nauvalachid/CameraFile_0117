@@ -5,3 +5,6 @@ import 'bloc/camera_bloc.dart';
 import 'bloc/camera_event.dart';
 import 'bloc/camera_state.dart';
 
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+}
