@@ -26,3 +26,5 @@ final class OpenCameraAndCapture extends CameraEvent {
   final BuildContext context;
   OpenCameraAndCapture(this.context);
 }
+
+final class DeleteImage extends CameraEvent {}
