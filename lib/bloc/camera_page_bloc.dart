@@ -21,4 +21,12 @@ class _CameraPageState extends State<CameraPage> {
       bloc.add(InitializeCamera());
     }
   }
+
+   IconData _flashIcon(FlashMode mode) {
+    return switch (mode) {
+      FlashMode.auto => Icons.flash_auto,
+      FlashMode.always => Icons.flash_on,
+      _ => Icons.flash_off,
+    };
+  }
 }
