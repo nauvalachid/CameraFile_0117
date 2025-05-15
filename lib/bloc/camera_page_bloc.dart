@@ -5,14 +5,14 @@ import 'camera_bloc.dart';
 import 'camera_event.dart';
 import 'camera_state.dart';
 
-class CameraPage extends StatefulWidget {
-  const CameraPage({super.key});
+class CameraPageBloc extends StatefulWidget {
+  const CameraPageBloc({super.key});
 
   @override
-  State<CameraPage> createState() => _CameraPageState();
+  State<CameraPageBloc> createState() => _CameraPageState();
 }
 
-class _CameraPageState extends State<CameraPage> {
+class _CameraPageState extends State<CameraPageBloc> {
   @override
   void initState() {
     super.initState();

@@ -81,7 +81,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
     final file = File(picked!.path);
       emit((state as CameraReady).copyWith(
         imageFile: file,
-        snackBarMessage: 'Berhasil memilih dari galeri.',
+        snackbarMessage: 'Berhasil memilih dari galeri.',
       )
     );
   }
@@ -102,7 +102,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       MaterialPageRoute(
         builder: (_) => BlocProvider.value(
           value: this,
-          child: const CameraPa(),
+          child: const CameraPageBloc(),
         ),
       ),
     );
@@ -111,7 +111,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       final saved = await StorageHelp.saveImage(file, 'camera');
       emit((state as CameraReady).copyWith(
         imageFile: saved,
-        snackBarMessage: 'Disimpan: ${saved.path}',
+        snackbarMessage: 'Disimpan: ${saved.path}',
       ));
     }
   }
@@ -126,7 +126,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       selectedIndex: s.selectedIndex,
       flashMode: s.flashMode,
       imageFile: null,
-      snackBarMessage: 'Gambar dihapus.',
+      snackbarMessage: 'Gambar dihapus.',
     ));
   }
 
@@ -134,7 +134,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
     ClearSnackbar event, Emitter<CameraState> emit) async {
     if (state is! CameraReady) return;
     final s = state as CameraReady;
-    emit(s.copyWith(clearSnackBar: true));
+    emit(s.copyWith(clearSnackbar: true));
   }
 
   Future<void> _setupController(
@@ -153,7 +153,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       selectedIndex: index,
       flashMode: previous?.flashMode ?? FlashMode.off,
       imageFile: previous?.imageFile,
-      snackBarMessage: null,
+      snackbarMessage: null,
     ));
   }
 
@@ -180,7 +180,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
     if (denied.isNotEmpty) {
       if (state is CameraReady) {
         emit((state as CameraReady).copyWith(
-          snackBarMessage: 'Izin kamera atau penyimpanan ditolak.',
+          snackbarMessage: 'Izin kamera atau penyimpanan ditolak.',
         ));
       }
     }
