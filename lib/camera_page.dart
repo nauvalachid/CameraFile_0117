@@ -234,7 +234,9 @@ Widget _circleButton(IconData icon, VoidCallback onTap, {double size = 50}) {
                   );
                 },
               )
-              : const Center(child: CircularProgressIndicator()),
+              : const Center(child: CircularProgressIndicator(
+                color: Colors.white,
+              )),
             );
           }
 }
