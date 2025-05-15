@@ -102,7 +102,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       MaterialPageRoute(
         builder: (_) => BlocProvider.value(
           value: this,
-          child: const CameraPageBloc(),
+          child: const CameraPage(),
         ),
       ),
     );
