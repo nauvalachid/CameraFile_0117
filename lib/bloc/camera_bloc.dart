@@ -10,6 +10,8 @@ part 'camera_event.dart';
 part 'camera_state.dart';
 
 class CameraBloc extends Bloc<CameraEvent, CameraState> {
+  late final List<CameraDescription> _cameras;
+  
   CameraBloc() : super(CameraInitial()) {
     on<CameraEvent>((event, emit) {
       // TODO: implement event handler
