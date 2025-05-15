@@ -108,7 +108,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
     );
 
     if (file != null) {
-      final saved = await StorageHelp.saveImage(file, 'camera');
+      final saved = await StorageHelper.saveImage(file, 'camera');
       emit((state as CameraReady).copyWith(
         imageFile: saved,
         snackbarMessage: 'Disimpan: ${saved.path}',
