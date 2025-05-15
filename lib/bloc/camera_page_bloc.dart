@@ -55,6 +55,24 @@ class _CameraPageState extends State<CameraPage> {
           if (state is! CameraReady) {
             return const Center(child: CircularProgressIndicator());
           }
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              return Stack(
+                fit: StackFit.expand,
+                children: [
+                  GestureDetector(
+                    onTapDown: (details) {
+                      context.read<CameraBloc>().add(
+                            TapToFocus(
+                              details.localPosition, constraints.biggest),
+                          );
+                    },
+                    child: CameraPreview(state.controller),
+                  ),
+                ]
+              );
+            }
+          );
         }
       )
     );
