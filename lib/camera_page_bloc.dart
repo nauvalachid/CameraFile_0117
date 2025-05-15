@@ -1,9 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'camera_bloc.dart';
-import 'camera_event.dart';
-import 'camera_state.dart';
+import 'bloc/camera_bloc.dart';
+import 'bloc/camera_event.dart';
+import 'bloc/camera_state.dart';
 
 class CameraPageBloc extends StatefulWidget {
   const CameraPageBloc({super.key});
