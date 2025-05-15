@@ -83,4 +83,77 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       )
     );
   }
+
+   Future<void> _onOpenCamera(
+    OpenCameraAndCapture event,
+    Emitter<CameraState> emit,
+   ) async {
+    print('[CameraBloc] OpenCameraAndCapture triggered');
+
+    if (state is! CameraReady) {
+      print('[CameraBloc] state is not ready, abort!');
+      return;
+    }
+
+    final file = await Navigator.push<File?>(
+      event.context,
+      MaterialPageRoute(
+        builder: (_) => BlocProvider.value(
+          value: this,
+          child: const CameraPage(),
+        ),
+      ),
+    );
+
+    if (file != null) {
+      final saved = await StorageHelper.saveImage(file, 'camera');
+      emit((state as CameraReady).copyWith(
+        imageFile: saved,
+        snackBarMessage: 'Disimpan: ${saved.path}',
+      ));
+    }
+  }
+
+   Future<void> _onDeleteImage(
+    DeleteImage event, Emitter<CameraState> emit) async {
+    if (state is! CameraReady) return;
+    final s = state as CameraReady;
+    await s.imageFile?.delete();
+    emit(CameraReady(
+      controller: s.controller,
+      selectedIndex: s.selectedIndex,
+      flashMode: s.flashMode,
+      imageFile: null,
+      snackBarMessage: 'Gambar dihapus.',
+    ));
+  }
+
+   Future<void> _onClearSnackbar(
+    ClearSnackbar event, Emitter<CameraState> emit) async {
+    if (state is! CameraReady) return;
+    final s = state as CameraReady;
+    emit(s.copyWith(clearSnackBar: true));
+  }
+
+  Future<void> _setupController(
+    int index,
+    Emitter<CameraState> emit, {
+    CameraReady? previous,
+  }) async {
+    await previous?.controller.dispose();
+    final controller = CameraController(_cameras[index], ResolutionPreset.max,
+      enableAudio: false,);
+    await controller.initialize();
+    await controller.setFlashMode(previous?.flashMode ?? FlashMode.off);
+
+    emit(CameraReady(
+      controller: controller,
+      selectedIndex: index,
+      flashMode: previous?.flashMode ?? FlashMode.off,
+      imageFile: previous?.imageFile,
+      snackBarMessage: null,
+    ));
+  }
+
+  
 }
